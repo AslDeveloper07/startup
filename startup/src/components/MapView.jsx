@@ -2,8 +2,29 @@ import React, { useState, useEffect, useCallback } from "react";
 import { FaMapMarkerAlt, FaChevronUp, FaChevronDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiCheck } from "react-icons/fi";
-import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow, LoadScript } from "@react-google-maps/api";
 import "./../App.css";
+
+// Custom marker icons
+const centerMarkerIcon = {
+  url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF6B00">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+    </svg>`
+  ),
+  scaledSize: new window.google.maps.Size(36, 36),
+  anchor: new window.google.maps.Point(18, 36)
+};
+
+const locationMarkerIcon = {
+  url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+    </svg>`
+  ),
+  scaledSize: new window.google.maps.Size(36, 36),
+  anchor: new window.google.maps.Point(18, 36)
+};
 
 const MapView = () => {
   const navigate = useNavigate();
@@ -11,6 +32,7 @@ const MapView = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [map, setMap] = useState(null);
+  const [activeInfoWindow, setActiveInfoWindow] = useState(null);
 
   // Default center - Tashkent coordinates
   const defaultCenter = {
@@ -80,6 +102,7 @@ const MapView = () => {
 
   const handleLocationSelect = (location) => {
     setSelectedLocation(location);
+    setActiveInfoWindow(location.id);
     if (isMobile) {
       setShowDetails(true);
     }
@@ -119,64 +142,58 @@ const MapView = () => {
       <main className="map-view-main-content">
         <div className="map-view-container">
           <div className="map-view-wrapper">
-            <GoogleMap
-              mapContainerStyle={containerStyle}
-              center={defaultCenter}
-              zoom={14}
-              onLoad={onMapLoad}
-              options={{
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-                zoomControl: true,
-                clickableIcons: false
-              }}
+            <LoadScript
+              googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+              libraries={["places"]}
             >
-              {/* Fixed center marker */}
-              <Marker
-                position={defaultCenter}
-                icon={{
-                  url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
-                    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF6B00" width="36px" height="36px">
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                    </svg>`
-                  ),
-                  scaledSize: new window.google.maps.Size(36, 36),
-                  anchor: new window.google.maps.Point(18, 36)
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={defaultCenter}
+                zoom={14}
+                onLoad={onMapLoad}
+                options={{
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  fullscreenControl: false,
+                  zoomControl: true,
+                  clickableIcons: false
                 }}
               >
-                <InfoWindow position={defaultCenter}>
-                  <div className="map-view-info-window">
-                    <h4>Usta Service</h4>
-                  </div>
-                </InfoWindow>
-              </Marker>
-
-              {/* Location markers */}
-              {locations.map((location) => (
+                {/* Fixed center marker */}
                 <Marker
-                  key={location.id}
-                  position={location.coordinates}
-                  onClick={() => handleLocationSelect(location)}
-                  icon={{
-                    url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
-                      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4" width="36px" height="36px">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                      </svg>`
-                    ),
-                    scaledSize: new window.google.maps.Size(36, 36),
-                    anchor: new window.google.maps.Point(18, 36)
-                  }}
+                  position={defaultCenter}
+                  icon={centerMarkerIcon}
+                  onClick={() => setActiveInfoWindow("center")}
                 >
-                  <InfoWindow position={location.coordinates}>
-                    <div className="map-view-info-window">
-                      <h4>{location.name}</h4>
-                      <p>{location.address}</p>
-                    </div>
-                  </InfoWindow>
+                  {activeInfoWindow === "center" && (
+                    <InfoWindow onCloseClick={() => setActiveInfoWindow(null)}>
+                      <div className="map-view-info-window">
+                        <h4>Usta Service</h4>
+                      </div>
+                    </InfoWindow>
+                  )}
                 </Marker>
-              ))}
-            </GoogleMap>
+
+                {/* Location markers */}
+                {locations.map((location) => (
+                  <Marker
+                    key={location.id}
+                    position={location.coordinates}
+                    onClick={() => handleLocationSelect(location)}
+                    icon={locationMarkerIcon}
+                  >
+                    {activeInfoWindow === location.id && (
+                      <InfoWindow onCloseClick={() => setActiveInfoWindow(null)}>
+                        <div className="map-view-info-window">
+                          <h4>{location.name}</h4>
+                          <p>{location.address}</p>
+                        </div>
+                      </InfoWindow>
+                    )}
+                  </Marker>
+                ))}
+              </GoogleMap>
+            </LoadScript>
           </div>
 
           {isMobile ? (
