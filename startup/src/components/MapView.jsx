@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FaMapMarkerAlt, FaChevronUp, FaChevronDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiCheck } from "react-icons/fi";
+import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import "./../App.css";
 
 const MapView = () => {
@@ -9,7 +10,13 @@ const MapView = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [mapLoaded, setMapLoaded] = useState(false);
+  const [map, setMap] = useState(null);
+
+  // Default center - Tashkent coordinates
+  const defaultCenter = {
+    lat: 41.311081,
+    lng: 69.240562
+  };
 
   // Mock location data
   const locations = [
@@ -86,8 +93,13 @@ const MapView = () => {
     }
   };
 
-  const handleMapLoad = () => {
-    setMapLoaded(true);
+  const onMapLoad = useCallback((map) => {
+    setMap(map);
+  }, []);
+
+  const containerStyle = {
+    width: '100%',
+    height: '100%'
   };
 
   return (
@@ -107,26 +119,64 @@ const MapView = () => {
       <main className="map-view-main-content">
         <div className="map-view-container">
           <div className="map-view-wrapper">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d95942.9548579405!2d69.1392832!3d41.28251255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2z0KLQsNGI0LrQtdC90YIsINCj0LfQsdC10LrQuNGB0YLQsNC9!5e0!3m2!1sru!2s!4v1620000000000!5m2!1sru!2s"
-              className="map-view-iframe"
-              allowFullScreen=""
-              loading="lazy"
-              onLoad={handleMapLoad}
-              title="Toshkent xaritasi"
-            ></iframe>
-
-            {mapLoaded && (
-              <div className="map-view-overlay">
-                {/* Single fixed orange marker in the center */}
-                <div className="map-view-fixed-marker">
-                  <div className="fixed-marker-icon">
-                    <FaMapMarkerAlt />
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={defaultCenter}
+              zoom={14}
+              onLoad={onMapLoad}
+              options={{
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+                zoomControl: true,
+                clickableIcons: false
+              }}
+            >
+              {/* Fixed center marker */}
+              <Marker
+                position={defaultCenter}
+                icon={{
+                  url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+                    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF6B00" width="36px" height="36px">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>`
+                  ),
+                  scaledSize: new window.google.maps.Size(36, 36),
+                  anchor: new window.google.maps.Point(18, 36)
+                }}
+              >
+                <InfoWindow position={defaultCenter}>
+                  <div className="map-view-info-window">
+                    <h4>Usta Service</h4>
                   </div>
-                  <div className="fixed-marker-text">Usta Service</div>
-                </div>
-              </div>
-            )}
+                </InfoWindow>
+              </Marker>
+
+              {/* Location markers */}
+              {locations.map((location) => (
+                <Marker
+                  key={location.id}
+                  position={location.coordinates}
+                  onClick={() => handleLocationSelect(location)}
+                  icon={{
+                    url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+                      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#4285F4" width="36px" height="36px">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>`
+                    ),
+                    scaledSize: new window.google.maps.Size(36, 36),
+                    anchor: new window.google.maps.Point(18, 36)
+                  }}
+                >
+                  <InfoWindow position={location.coordinates}>
+                    <div className="map-view-info-window">
+                      <h4>{location.name}</h4>
+                      <p>{location.address}</p>
+                    </div>
+                  </InfoWindow>
+                </Marker>
+              ))}
+            </GoogleMap>
           </div>
 
           {isMobile ? (
