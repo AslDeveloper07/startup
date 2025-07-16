@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { FiSearch, FiHome, FiFileText, FiUser } from "react-icons/fi";
 import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
@@ -7,8 +7,6 @@ import { useState } from "react";
 import ServiceCard from "./ServiceCard";
 import NavItem from "./NavItem";
 import MapView from "./MapView";
-
-
 
 const Home = () => {
   const [services, setServices] = useState([
@@ -19,7 +17,7 @@ const Home = () => {
       status: "active",
       rating: 4,
       location: { lat: 41.311081, lng: 69.240562 },
-      img: 'https://images.ctfassets.net/48pg1507y9dh/15Qi0G9QHgNa0d7SjTlWWr/74b10b27f87ab7742d02c3fa271e9bea/OPS-products-e-builder-og-1200x628.webp'
+      img: "https://images.ctfassets.net/48pg1507y9dh/15Qi0G9QHgNa0d7SjTlWWr/74b10b27f87ab7742d02c3fa271e9bea/OPS-products-e-builder-og-1200x628.webp",
     },
     {
       id: 2,
@@ -28,7 +26,7 @@ const Home = () => {
       status: "busy",
       rating: 5,
       location: { lat: 41.315, lng: 69.245 },
-      img: 'https://images.ctfassets.net/48pg1507y9dh/15Qi0G9QHgNa0d7SjTlWWr/74b10b27f87ab7742d02c3fa271e9bea/OPS-products-e-builder-og-1200x628.webp'
+      img: "https://images.ctfassets.net/48pg1507y9dh/15Qi0G9QHgNa0d7SjTlWWr/74b10b27f87ab7742d02c3fa271e9bea/OPS-products-e-builder-og-1200x628.webp",
     },
     {
       id: 3,
@@ -37,7 +35,7 @@ const Home = () => {
       status: "available",
       rating: 4,
       location: { lat: 41.312, lng: 69.238 },
-      img: 'https://images.ctfassets.net/48pg1507y9dh/15Qi0G9QHgNa0d7SjTlWWr/74b10b27f87ab7742d02c3fa271e9bea/OPS-products-e-builder-og-1200x628.webp'
+      img: "https://images.ctfassets.net/48pg1507y9dh/15Qi0G9QHgNa0d7SjTlWWr/74b10b27f87ab7742d02c3fa271e9bea/OPS-products-e-builder-og-1200x628.webp",
     },
     {
       id: 4,
@@ -46,7 +44,7 @@ const Home = () => {
       status: "inactive",
       rating: 3,
       location: { lat: 41.309, lng: 69.242 },
-      img: 'https://images.ctfassets.net/48pg1507y9dh/15Qi0G9QHgNa0d7SjTlWWr/74b10b27f87ab7742d02c3fa271e9bea/OPS-products-e-builder-og-1200x628.webp'
+      img: "https://images.ctfassets.net/48pg1507y9dh/15Qi0G9QHgNa0d7SjTlWWr/74b10b27f87ab7742d02c3fa271e9bea/OPS-products-e-builder-og-1200x628.webp",
     },
   ]);
 
@@ -64,9 +62,10 @@ const Home = () => {
             />
             <FiSearch className="search-icon" />
             <Link to="/map">
-            <button className="map-toggle" to="/map">
-              <RiMapPinLine size={25} />
-            </button></Link>
+              <button className="map-toggle" to="/map">
+                <RiMapPinLine size={25} />
+              </button>
+            </Link>
           </div>
         </div>
       </header>
@@ -87,10 +86,12 @@ const Home = () => {
       <nav className="bottom-nav">
         <NavItem icon={<FiHome />} label="Asosiy" active />
         <NavItem icon={<FiFileText />} label="Buyurtmalar" />
+        <Link to="/profile">
         <NavItem icon={<FiUser />} label="Profil" />
+        </Link>
       </nav>
     </div>
   );
-}
+};
 
 export default Home;
