@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { FiSearch, FiHome, FiFileText, FiUser } from "react-icons/fi";
 import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
@@ -63,9 +63,10 @@ const Home = () => {
               className="search-input"
             />
             <FiSearch className="search-icon" />
+            <Link to="/map">
             <button className="map-toggle" to="/map">
               <RiMapPinLine size={25} />
-            </button>
+            </button></Link>
           </div>
         </div>
       </header>
