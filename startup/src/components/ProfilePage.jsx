@@ -7,7 +7,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
-  const [name, setName] = useState('Yangj ism');
+  const [name, setName] = useState('Yangi ism');
   const [avatar, setAvatar] = useState(null);
   const [tempAvatar, setTempAvatar] = useState(null);
 
