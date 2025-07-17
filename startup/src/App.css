@@ -108,112 +108,151 @@ body {
 .main-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 10px;
+  padding: 20px 10px 0 10px;
 }
 
 /* Services Container */
 .services-container {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
 }
 
 /* Service Card */
 .service-card {
-  background-color: white;
-  border-radius: 12px;
+  background: white;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   transition: all 0.2s ease;
   cursor: pointer;
+  border: 1px solid #f0f0f0;
 }
 
+.service-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
 
 .card-content {
-  padding: 20px;
+  display: flex;
+  padding: 5px;
+  gap: 15px;
+}
+
+.card-img {
+  width: 130px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-text {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-header {
+  gap: 18px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+  align-items: start;
+  padding: 10px 0 0 0;
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  color: var(--text-dark);
+  color: #333;
+  margin: 0 0 5px 0;
 }
 
 .status-badge {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 5px;
 }
 
 .status-badge.active {
   background-color: rgba(76, 175, 80, 0.1);
-  color: var(--success);
+  color: #388e3c;
 }
 
 .status-badge.busy {
   background-color: rgba(255, 152, 0, 0.1);
-  color: var(--warning);
+  color: #f57c00;
 }
 
 .status-badge.inactive {
   background-color: rgba(244, 67, 54, 0.1);
-  color: var(--danger);
+  color: #d32f2f;
 }
 
 .status-badge.available {
-  background-color: rgba(255, 183, 77, 0.2);
-  color: var(--primary-dark);
+  background-color: rgba(255, 152, 0, 0.1);
+  color: #ff9800;
 }
 
 .card-description {
-  font-size: 14px;
-  color: var(--text-light);
-  margin-bottom: 16px;
-  line-height: 1.5;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+  margin: 5px 0 10px 0;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
+  gap: 37px;
 }
 
 .rating {
-  color: #ddd;
-  font-size: 16px;
   display: flex;
   gap: 2px;
 }
 
 .rating .filled {
-  color: #FFC107;
+  color: #ff9800;
+}
+
+.rating .empty {
+  color: #e0e0e0;
 }
 
 .order-btn {
-  background-color: var(--primary);
+  background-color: #ff9800;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  outline: none;
+  transition: background-color 0.2s ease;
 }
 
 .order-btn:hover {
-  background-color: var(--primary-dark);
+  background-color: #f57c00;
 }
 
+/* Selected state */
+.service-card.selected {
+  border: 1px solid #ff9800;
+  background-color: #fff8f0;
+}
 /* Map View */
 .map-view {
   height: 500px;
@@ -316,17 +355,13 @@ body {
 
   .services-container {
     grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+    gap: 15px;
   }
 
   .service-card {
     border-radius: 16px;
   }
 
-  .card-content {
-    padding: 25px;
-
-  }
 
   .card-title {
     font-size: 20px;
@@ -585,9 +620,7 @@ body {
   padding: 30px;
   font-size: 16px;
 }
-.card-img img{
-  width: 20px;
-}
+
 /* Map View Styles */
 .map-view-container {
   position: relative;
