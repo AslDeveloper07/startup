@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { FaMapMarkerAlt, FaChevronUp, FaChevronDown } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiCheck } from "react-icons/fi";
-import { GoogleMap, Marker, InfoWindow, LoadScript } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  Marker,
+  InfoWindow,
+  LoadScript,
+} from "@react-google-maps/api";
 import { IoIosArrowBack } from "react-icons/io";
 import "./../App.css";
 
@@ -43,14 +48,17 @@ const MapView = () => {
       name: "Elektrik montaj korxonasi",
       address: "Toshkent sh., Yunusobod tumani, Navoiy ko'chasi 45",
       description: "Professional elektrik xizmatlari...",
-      details: ["10 yillik tajriba", "24/7 xizmat", "Mijozlar qoniqtirilganligi 98%"],
+      details: [
+        "10 yillik tajriba",
+        "24/7 xizmat",
+        "Mijozlar qoniqtirilganligi 98%",
+      ],
       images: [
         "https://labcfrontdoor.co.uk/media/0pyn2gyf/how-to-choose-builder.jpg?width=487&height=324&v=1d64e317f111bc0",
         "https://na.rdcpix.com/155592788/7010820eb479aad468cd5e188c845290w-c0xd-w436_h236_r4_q80.webp",
       ],
       coordinates: { lat: 41.311081, lng: 69.240562 },
     },
-
   ];
 
   useEffect(() => {
@@ -82,16 +90,21 @@ const MapView = () => {
   return (
     <div className="map-view-app">
       <header className="map-view-header">
-        <button onClick={() => navigate(-1)} className="map-view-back-button">
+        <Link
+          to={"/"}
+          onClick={() => navigate(-1)}
+          className="map-view-back-button"
+        >
           <IoIosArrowBack className="back" /> Orqaga
-        </button>
+        </Link>
         <h2>Xarita</h2>
-
       </header>
 
       <main className="map-view-main-content">
         <div className="map-view-container">
-          <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+          <LoadScript
+            googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+          >
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={defaultCenter}
@@ -111,7 +124,9 @@ const MapView = () => {
               >
                 {activeInfoWindow === "center" && (
                   <InfoWindow onCloseClick={() => setActiveInfoWindow(null)}>
-                    <div><strong>Usta Service</strong></div>
+                    <div>
+                      <strong>Usta Service</strong>
+                    </div>
                   </InfoWindow>
                 )}
               </Marker>
@@ -138,14 +153,23 @@ const MapView = () => {
 
           {/* Details */}
           {isMobile ? (
-            <div className={`map-view-mobile-details ${showDetails ? "visible" : ""}`}>
-              <div className="map-view-drag-handle" onClick={() => setShowDetails(!showDetails)}>
+            <div
+              className={`map-view-mobile-details ${
+                showDetails ? "visible" : ""
+              }`}
+            >
+              <div
+                className="map-view-drag-handle"
+                onClick={() => setShowDetails(!showDetails)}
+              >
                 {showDetails ? <FaChevronDown /> : <FaChevronUp />}
               </div>
               {selectedLocation ? (
                 <div className="slideBar">
                   <h3>{selectedLocation.name}</h3>
-                  <p><FaMapMarkerAlt /> {selectedLocation.address}</p>
+                  <p>
+                    <FaMapMarkerAlt /> {selectedLocation.address}
+                  </p>
                   <p>{selectedLocation.description}</p>
                   {selectedLocation.images.map((img, i) => (
                     <img key={i} src={img} alt={selectedLocation.name} />
@@ -164,7 +188,9 @@ const MapView = () => {
             selectedLocation && (
               <div className="map-view-desktop-details">
                 <h3>{selectedLocation.name}</h3>
-                <p><FaMapMarkerAlt /> {selectedLocation.address}</p>
+                <p>
+                  <FaMapMarkerAlt /> {selectedLocation.address}
+                </p>
                 <p>{selectedLocation.description}</p>
                 {selectedLocation.images.map((img, i) => (
                   <img key={i} src={img} alt={selectedLocation.name} />
