@@ -1,5 +1,5 @@
 const NavItem = ({ icon, label, active = false }) => {
-  return (
+  return ( 
     <div className={`nav-item ${active ? "active" : ""}`}>
       <span className="nav-icon">{icon}</span>
     </div>
