@@ -51,7 +51,274 @@ const Home = () => {
         },
       ],
     },
-    // ... other services
+    {
+      id: 2,
+      title: "Santexnika xizmati",
+      description: "Barcha turdagi santexnika ishlari",
+      status: "busy",
+      rating: 5,
+      reviews: 18,
+      distance: "0.8 km",
+      price: "250 000 so'm",
+      img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGx1bWJlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Quvur almashtirish",
+        "Dush kabinalari o'rnatish",
+        "Kanalizatsiya tozalash",
+        "Suv o'tkazgichlarni ta'mirlash",
+      ],
+      address: "Toshkent sh., Mirzo Ulug'bek tumani, Amir Temur ko'chasi 78",
+      phone: "+998902345678",
+      experience: "7 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Shoxrux Baxodirov",
+          rating: 5,
+          comment: "Judayam sifatli ish qildi, rahmat!",
+          date: "15.04.2023",
+        },
+      ],
+    },
+    {
+      id: 3,
+      title: "Konditsioner montaj",
+      description: "Barcha turdagi konditsionerlarni o'rnatish",
+      status: "available",
+      rating: 4,
+      reviews: 9,
+      distance: "2.1 km",
+      price: "450 000 so'm",
+      img: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWlyJTIwY29uZGl0aW9uZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Konditsioner o'rnatish",
+        "Filtrni tozalash",
+        "Gaz to'ldirish",
+        "Konditsioner ta'miri",
+      ],
+      address: "Toshkent sh., Shayxontohur tumani, Navoiy ko'chasi 12",
+      phone: "+998903456789",
+      experience: "4 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Lola Karimova",
+          rating: 4,
+          comment: "Tez va sifatli ish uchun rahmat!",
+          date: "22.05.2023",
+        },
+        {
+          id: 2,
+          user: "Jamshid Ismoilov",
+          rating: 5,
+          comment: "Mutaxassis juda malakali, ishiga ishonaman",
+          date: "10.06.2023",
+        },
+      ],
+    },
+    {
+      id: 4,
+      title: "Qurilish ishlari",
+      description: "Kichik va o'rta miqyosdagi qurilish ishlari",
+      status: "active",
+      rating: 4,
+      reviews: 15,
+      distance: "3.5 km",
+      price: "1 200 000 so'm",
+      img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uc3RydWN0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Xonadon qurish",
+        "Ta'mirlash ishlari",
+        "G'isht terish",
+        "Shift va pollarni qilish",
+      ],
+      address: "Toshkent sh., Yakkasaroy tumani, Bobur ko'chasi 34",
+      phone: "+998904567890",
+      experience: "10 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Otabek Nurmatov",
+          rating: 5,
+          comment: "Uyimni ajoyib qilib qurdilar, juda xursandman!",
+          date: "05.01.2023",
+        },
+      ],
+    },
+    {
+      id: 5,
+      title: "Mebel yig'ish",
+      description: "Barcha turdagi mebellarni yig'ish va o'rnatish",
+      status: "available",
+      rating: 3,
+      reviews: 7,
+      distance: "1.7 km",
+      price: "180 000 so'm",
+      img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZnVybml0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Divan yig'ish",
+        "Yotoq yig'ish",
+        "Oshxona mebellari",
+        "Shkaf yig'ish",
+      ],
+      address: "Toshkent sh., Chilonzor tumani, Bunyodkor ko'chasi 56",
+      phone: "+998905678901",
+      experience: "3 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Dilnoza Qodirova",
+          rating: 4,
+          comment: "Vaqtida kelishdi va tez ishlashdi",
+          date: "18.03.2023",
+        },
+      ],
+    },
+    {
+      id: 6,
+      title: "Elektronika ta'miri",
+      description: "Uy elektronikasini ta'mir qilish",
+      status: "active",
+      rating: 4,
+      reviews: 11,
+      distance: "2.3 km",
+      price: "200 000 so'm",
+      img: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Televizor ta'miri",
+        "Konditsioner ta'miri",
+        "Muzlatgich ta'miri",
+        "Kir yuvish mashinasi ta'miri",
+      ],
+      address: "Toshkent sh., Sergeli tumani, Yangi Sergeli ko'chasi 23",
+      phone: "+998906789012",
+      experience: "6 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Farhod Abdullayev",
+          rating: 5,
+          comment: "Eski televizorimni qayta tiklashdi, juda yaxshi!",
+          date: "30.04.2023",
+        },
+      ],
+    },
+    {
+      id: 7,
+      title: "Devorga bo'yoq",
+      description: "Uy va ofislarga professional bo'yoq ishlari",
+      status: "busy",
+      rating: 4,
+      reviews: 14,
+      distance: "1.5 km",
+      price: "350 000 so'm",
+      img: "https://images.unsplash.com/photo-1600587439665-47a8ff1a9b3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFpbnRpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Devorlarni bo'yash",
+        "Shift bo'yash",
+        "Dekorativ bo'yoq",
+        "Travertin ishlari",
+      ],
+      address: "Toshkent sh., Yashnobod tumani, Farhod ko'chasi 67",
+      phone: "+998907890123",
+      experience: "5 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Gulnora Xamidova",
+          rating: 4,
+          comment: "Uyimni juda chiroyli qilib bo'yashdi",
+          date: "12.02.2023",
+        },
+      ],
+    },
+    {
+      id: 8,
+      title: "Issiqxona qurish",
+      description: "Turli o'lchamdagi issiqxonalarni qurish",
+      status: "available",
+      rating: 5,
+      reviews: 6,
+      distance: "4.2 km",
+      price: "2 500 000 so'm",
+      img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JlZW5ob3VzZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Issiqxona qurish",
+        "Polikarbonat ishlari",
+        "Suv quvurlarini o'rnatish",
+        "Issiqxona ta'miri",
+      ],
+      address: "Toshkent sh., Qibray tumani, Bog'ishamol ko'chasi 89",
+      phone: "+998908901234",
+      experience: "8 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Bobur Ergashev",
+          rating: 5,
+          comment: "Ajoyib issiqxona qurishdi, hammasi sifatli!",
+          date: "08.03.2023",
+        },
+      ],
+    },
+    {
+      id: 9,
+      title: "Hammom ta'miri",
+      description: "Hammom va dush xonalarini ta'mirlash",
+      status: "active",
+      rating: 4,
+      reviews: 8,
+      distance: "2.8 km",
+      price: "800 000 so'm",
+      img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmF0aHJvb218ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Kafel ishlari",
+        "Gidroizolyatsiya",
+        "Suv o'tkazgichlarni o'rnatish",
+        "Dush kabinalari o'rnatish",
+      ],
+      address: "Toshkent sh., Bektemir tumani, Mustaqillik ko'chasi 45",
+      phone: "+998909012345",
+      experience: "6 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Shahnoza Mirzayeva",
+          rating: 5,
+          comment: "Hammomim yangi qurilgandek bo'lib qoldi!",
+          date: "25.05.2023",
+        },
+      ],
+    },
+    {
+      id: 10,
+      title: "Deraza o'rnatish",
+      description: "Plastik va yog'och derazalarni o'rnatish",
+      status: "inactive",
+      rating: 3,
+      reviews: 5,
+      distance: "3.1 km",
+      price: "600 000 so'm",
+      img: "https://images.unsplash.com/photo-1558008258-3256797b43f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2luZG93fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+      works: [
+        "Plastik deraza o'rnatish",
+        "Yog'och deraza o'rnatish",
+        "Deraza ta'miri",
+        "Shisha almashtirish",
+      ],
+      address: "Toshkent sh., Uchtepa tumani, O'zbekiston ko'chasi 78",
+      phone: "+998900123456",
+      experience: "4 yillik tajriba",
+      reviewsList: [
+        {
+          id: 1,
+          user: "Rustam Qodirov",
+          rating: 4,
+          comment: "Derazalarimni ajoyib o'rnatishdi, shovqin kamaydi",
+          date: "14.04.2023",
+        },
+      ],
+    },
   ]);
 
   const handleServiceSelect = (service) => {
@@ -113,14 +380,14 @@ const ServiceCard = ({ service, onSelect }) => {
 
   return (
     <div
-      className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-all cursor-pointer"
+      className="bg-white rounded-xl border overflow-hidden border border-gray-100  transition-all cursor-pointer"
       onClick={onSelect}
     >
-      <div className="flex p-3">
+      <div className="flex p-2">
         <img
           src={service.img}
           alt={service.title}
-          className="w-24 h-24 object-cover rounded-lg"
+          className="w-24 h-27 object-cover rounded-lg"
         />
 
         <div className="ml-3 flex-1 flex flex-col justify-between">
@@ -141,7 +408,7 @@ const ServiceCard = ({ service, onSelect }) => {
               </span>
             </div>
 
-            <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+            <p className="text-gray-600 text-sm mt-1 line-clamp-1 ">
               {service.description}
             </p>
           </div>
@@ -221,17 +488,17 @@ const DetailistPage = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto px-4 pb-24">
+      <main className="flex-1  overflow-y-auto px-4 pb-20">
         {/* Profile Section */}
-        <div className="bg-white rounded-xl shadow-md overflow-hidden mt-4">
-          <div className="p-4 flex items-start">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden mt-4 ">
+          <div className="p-0 flex items-start flex-col">
             <img
               src={service.img}
               alt={service.title}
-              className="w-20 h-20 object-cover rounded-lg border-2 border-orange-100"
+              className="w-[400px] h-fit object-cover rounded-lg border-2 border-orange-100"
             />
 
-            <div className="ml-4 flex-1">
+            <div className="p-4 flex-1">
               <div className="flex justify-between items-start">
                 <h2 className="text-lg font-bold text-gray-800">
                   {service.title}
@@ -276,12 +543,12 @@ const DetailistPage = () => {
               </p>
 
               <div className="mt-3 flex items-center text-sm text-gray-500">
-                <FiMapPin className="mr-2 text-orange-500" />
+                <FiMapPin className="text-lg mr-2 text-orange-500" />
                 <span>{service.address}</span>
               </div>
 
               <div className="mt-2 flex items-center text-sm text-gray-500">
-                <FiCalendar className="mr-2 text-orange-500" />
+                <FiCalendar className="text-base mr-2 text-orange-500" />
                 <span>{service.experience}</span>
               </div>
             </div>
@@ -300,7 +567,7 @@ const DetailistPage = () => {
               href={`https://wa.me/${service.phone}`}
               className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg flex items-center justify-center transition-colors"
             >
-              <FaWhatsapp className="mr-2" />
+              <FaWhatsapp className="text-xl mr-2" />
               WhatsApp
             </a>
           </div>

@@ -54,7 +54,7 @@ const ProfilePage = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-md">
-        <div className="bg-white rounded-2xl overflow-hidden ">
+        <div className=" rounded-2xl overflow-hidden ">
           {/* Avatar Section */}
           <div className="flex flex-col items-center mb-8 ">
             <div className="relative group">
@@ -101,7 +101,7 @@ const ProfilePage = () => {
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
               placeholder="Ismingizni kiriting"
             />
           </div>
