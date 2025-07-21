@@ -9,7 +9,7 @@ import {
   LoadScript,
 } from "@react-google-maps/api";
 import { IoIosArrowBack } from "react-icons/io";
-import "./../App.css";
+import "./../index.css";
 
 // SVG marker data URIs
 const centerMarkerUrl =

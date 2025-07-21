@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { FiSearch, FiHome, FiFileText, FiUser } from "react-icons/fi";
 import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
-import "./../App.css";
 import { useState } from "react";
 import ServiceCard from "./ServiceCard";
 import NavItem from "./NavItem";
@@ -51,27 +50,27 @@ const Home = () => {
   const [selectedService, setSelectedService] = useState(null);
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <div className="header-content">
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Qidirish..."
-              className="search-input"
-            />
-            <FiSearch className="search-icon" />
-            <Link to="/map">
-              <button className="map-toggle" to="/map">
-                <RiMapPinLine size={25} />
-              </button>
-            </Link>
-          </div>
+    <div className="flex flex-col h-screen max-w-md mx-auto bg-gray-50">
+      {/* Header */}
+      <header className="sticky top-0 z-10 bg-white shadow-sm p-4">
+        <div className="flex items-center relative">
+          <FiSearch className="absolute left-3 text-gray-400" size={20} />
+          <input
+            type="text"
+            placeholder="Qidirish..."
+            className="w-full py-2 pl-10 pr-4 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <Link to="/map" className="ml-2">
+            <button className="p-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition-colors">
+              <RiMapPinLine size={20} />
+            </button>
+          </Link>
         </div>
       </header>
 
-      <main className="main-content">
-        <div className="services-container">
+      {/* Main Content */}
+      <main className="flex-1 overflow-y-auto p-4 pb-20">
+        <div className="space-y-4">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
@@ -83,11 +82,12 @@ const Home = () => {
         </div>
       </main>
 
-      <nav className="bottom-nav">
-        <NavItem icon={<FiHome />} label="Asosiy" active />
-        <NavItem icon={<FiFileText />} label="Buyurtmalar" />
-        <Link to="/profile">
-        <NavItem icon={<FiUser />} label="Profil" />
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center p-3 max-w-md mx-auto">
+        <NavItem icon={<FiHome size={24} />} label="Asosiy" active />
+        <NavItem icon={<FiFileText size={24} />} label="Buyurtmalar" />
+        <Link to="/profile" className="flex flex-col items-center">
+          <NavItem icon={<FiUser size={24} />} label="Profil" />
         </Link>
       </nav>
     </div>

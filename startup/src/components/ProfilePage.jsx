@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaEdit, FaSave } from 'react-icons/fa';
-import './../App.css';
+import './../index.css';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
