@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   FiSearch,
   FiHome,
@@ -14,7 +14,7 @@ import { useState } from "react";
 const Home = () => {
   const navigate = useNavigate();
 
-  const [services, setServices] = useState([
+  const [services] = useState([
     {
       id: 1,
       title: "Elektrik montaj",
@@ -190,12 +190,22 @@ const ServiceCard = ({ service, onSelect }) => {
 // DetailistPage component
 const DetailistPage = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const service =
-    state?.service ||
-    {
-      // Default data if none provided
-    };
+  const location = useLocation();
+  const service = location.state?.service;
+
+  if (!service) {
+    return (
+      <div className="flex flex-col h-screen max-w-md mx-auto bg-gray-50 items-center justify-center">
+        <p className="text-gray-500">Ma'lumot topilmadi</p>
+        <button
+          onClick={() => navigate(-1)}
+          className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg"
+        >
+          Orqaga qaytish
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-screen max-w-md mx-auto bg-gray-50">
