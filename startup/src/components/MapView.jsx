@@ -10,7 +10,6 @@ import {
   LoadScript,
 } from "@react-google-maps/api";
 import { IoIosArrowBack } from "react-icons/io";
-import "./../index.css";
 
 // SVG marker data URIs
 const centerMarkerUrl =
@@ -89,24 +88,43 @@ const MapView = () => {
   const containerStyle = { width: "100%", height: "100%" };
 
   return (
-    <div className="map-view-app bg-gray-50">
-      <header className="map-view-header bg-white shadow-md py-4 px-6 flex items-center justify-between">
+    <div className="flex flex-col h-screen bg-gray-50">
+      {/* Inject the style tag for any necessary customizations */}
+      <style>
+        {`
+          .gm-style .gm-style-iw-c {
+            padding: 0;
+            border-radius: 0.5rem;
+          }
+          .gm-style .gm-style-iw-d {
+            padding: 0;
+            overflow: hidden !important;
+          }
+          .gm-style .gm-style-iw-t::after {
+            background: none;
+          }
+        `}
+      </style>
+
+      {/* Header */}
+      <header className="bg-white shadow-md py-4 px-6 flex items-center justify-between">
         <Link
-          to={"/"}
+          to="/"
           onClick={() => navigate(-1)}
-          className="map-view-back-button flex items-center text-orange-600 hover:text-orange-800 transition-colors"
+          className="flex items-center text-orange-600 hover:text-orange-800 transition-colors font-medium"
         >
-          <IoIosArrowBack className="back mr-2" /> Orqaga
+          <IoIosArrowBack className="mr-2" />
+          Orqaga
         </Link>
         <h2 className="text-xl font-semibold text-gray-800">Xarita</h2>
         <div className="w-6"></div>
       </header>
 
-      <main className="map-view-main-content relative">
-        <div className="map-view-container flex flex-col md:flex-row h-[calc(100vh-64px)]">
-          <LoadScript
-            googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
-          >
+      {/* Main Content */}
+      <main className="flex-1 relative">
+        <div className="flex flex-col md:flex-row h-full">
+          {/* Google Map */}
+          <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={defaultCenter}
@@ -168,7 +186,7 @@ const MapView = () => {
           {/* Floating Action Button */}
           <button
             onClick={handleConfirm}
-            className="fixed bottom-6 right-6 md:right-auto md:left-1/2 md:transform md:-translate-x-1/2 bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-full shadow-xl hover:from-orange-600 hover:to-orange-700 transition-all z-10"
+            className="fixed bottom-6 right-6 md:right-auto md:left-1/2 md:-translate-x-1/2 bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-full shadow-xl hover:from-orange-600 hover:to-orange-700 transition-all z-100 hover:shadow-2xl hover:-translate-y-1"
             aria-label="Select location"
           >
             <LuMapPin className="text-xl" />
@@ -177,12 +195,12 @@ const MapView = () => {
           {/* Mobile Details Panel */}
           {isMobile ? (
             <div
-              className={`map-view-mobile-details bg-white rounded-t-2xl shadow-xl transition-all duration-300 ${
-                showDetails ? "visible h-1/2" : "h-16"
+              className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-xl transition-all duration-300 z-20 ${
+                showDetails ? "h-1/2" : "h-16"
               }`}
             >
               <div
-                className="map-view-drag-handle flex justify-center items-center py-3 bg-orange-50 rounded-t-2xl cursor-pointer"
+                className="flex justify-center items-center py-3 bg-orange-50 rounded-t-2xl cursor-pointer"
                 onClick={() => setShowDetails(!showDetails)}
               >
                 {showDetails ? (
@@ -192,7 +210,7 @@ const MapView = () => {
                 )}
               </div>
               {selectedLocation ? (
-                <div className="slideBar p-4 overflow-y-auto h-[calc(100%-52px)]">
+                <div className="p-4 overflow-y-auto h-[calc(100%-52px)]">
                   <h3 className="text-xl font-bold text-gray-800 mb-2">
                     {selectedLocation.name}
                   </h3>
@@ -214,7 +232,7 @@ const MapView = () => {
                   <ul className="space-y-2">
                     {selectedLocation.details.map((d, i) => (
                       <li key={i} className="flex items-start">
-                        <span className="inline-block bg-orange-100 text-orange-600 rounded-full p-1 mr-2">
+                        <span className="inline-flex bg-orange-100 text-orange-600 rounded-full p-1 mr-2">
                           <FiCheck size={12} />
                         </span>
                         <span className="text-gray-700">{d}</span>
@@ -230,7 +248,7 @@ const MapView = () => {
             </div>
           ) : (
             selectedLocation && (
-              <div className="map-view-desktop-details w-full md:w-96 bg-white shadow-xl p-6 overflow-y-auto">
+              <div className="absolute right-0 top-0 bottom-0 w-96 bg-white shadow-xl p-6 overflow-y-auto z-10">
                 <h3 className="text-2xl font-bold text-gray-800 mb-3">
                   {selectedLocation.name}
                 </h3>
@@ -252,7 +270,7 @@ const MapView = () => {
                 <ul className="space-y-3 mb-6">
                   {selectedLocation.details.map((d, i) => (
                     <li key={i} className="flex items-start">
-                      <span className="inline-block bg-orange-100 text-orange-600 rounded-full p-1 mr-3 mt-1">
+                      <span className="inline-flex bg-orange-100 text-orange-600 rounded-full p-1 mr-3 mt-1">
                         <FiCheck size={12} />
                       </span>
                       <span className="text-gray-700">{d}</span>
@@ -261,7 +279,7 @@ const MapView = () => {
                 </ul>
                 <button
                   onClick={handleConfirm}
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-6 rounded-lg shadow-md hover:from-orange-600 hover:to-orange-700 transition-all flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-6 rounded-lg shadow-md hover:from-orange-600 hover:to-orange-700 transition-all flex items-center justify-center hover:shadow-lg hover:-translate-y-0.5"
                 >
                   <LuMapPin className="mr-2 text-lg" />
                   Joyni tanlash
