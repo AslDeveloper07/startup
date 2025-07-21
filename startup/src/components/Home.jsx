@@ -121,13 +121,9 @@ const ServiceCard = ({ service, onSelect, isSelected }) => {
         <div className="ml-2 flex-1 flex flex-col justify-between p-1">
           <div>
             <div className="flex justify-between items-start">
-              <h3 className="font-bold text-lg text-gray-800 line-clamp-1">
-                {service.title}
-              </h3>
+              <h3 className="font-bold text-lg text-gray-800 line-clamp-1">{service.title}</h3>
               <span
-                className={`text-xs px-2 py-1 rounded-full ${
-                  statusColors[service.status]
-                } font-medium`}
+                className={`text-xs px-2 py-1 rounded-full ${statusColors[service.status]} font-medium`}
               >
                 {service.status === "active" && "Faol"}
                 {service.status === "busy" && "Band"}
@@ -149,15 +145,11 @@ const ServiceCard = ({ service, onSelect, isSelected }) => {
                     <FaStar
                       key={i}
                       size={14}
-                      className={
-                        i < service.rating ? "fill-current" : "text-gray-300"
-                      }
+                      className={i < service.rating ? "fill-current" : "text-gray-300"}
                     />
                   ))}
                 </div>
-                <span className="text-xs text-gray-500">
-                  {service.rating}.0
-                </span>
+                <span className="text-xs text-gray-500">{service.rating}.0</span>
               </div>
 
               {/* <div className="flex items-center text-gray-500 text-sm">
