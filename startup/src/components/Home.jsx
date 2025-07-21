@@ -50,16 +50,16 @@ const Home = () => {
   const [selectedService, setSelectedService] = useState(null);
 
   return (
-    <div className="flex flex-col h-screen max-w-md mx-auto bg-gray-50 font-sans">
+    <div className="flex flex-col h-screen max-w-md mx-auto bg-gray-50 font-sans ">
       {/* Header */}
-      <header className="sticky top-0 z-20 bg-white shadow-sm px-4 pt-6 pb-4">
+      <header className="sticky top-0 z-20 bg-white shadow-sm px-4 pt-2 pb-2">
         {/* <h1 className="text-2xl font-bold text-gray-800 mb-2">Xizmatlar</h1> */}
-        <div className="flex items-center relative">
+        <div className="flex items-center relative ">
           <FiSearch className="absolute left-3 text-gray-400" size={20} />
           <input
             type="text"
             placeholder="Qidirish..."
-            className="w-full py-3 pl-10 pr-4 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 text-gray-700"
+            className="w-full py-[10px] pl-10 pr-4 bg-gray-100 rounded-xl focus:outline-none focus:ring-1 focus:ring-orange-500 text-gray-700"
           />
           <Link to="/map" className="ml-2">
             <button className="p-3 bg-orange-500 text-white rounded-xl shadow-md hover:bg-orange-600 transition-colors">
@@ -70,8 +70,8 @@ const Home = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto px-4 pb-24">
-        <div className="space-y-4 mt-2">
+      <main className="flex-1 overflow-y-auto px-4 pb-18">
+        <div className="space-y-2 mt-2">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
@@ -84,7 +84,7 @@ const Home = () => {
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center p-2 max-w-md mx-auto">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center p-0 max-w-md mx-auto">
         <NavItem icon={<FiHome size={24} />} label="Asosiy" active />
         <NavItem icon={<FiFileText size={24} />} label="Buyurtmalar" />
         <Link to="/profile" className="flex flex-col items-center">
@@ -107,23 +107,27 @@ const ServiceCard = ({ service, onSelect, isSelected }) => {
   return (
     <div
       className={`bg-white rounded-2xl shadow-sm overflow-hidden transition-all border border-gray-100 ${
-        isSelected ? "ring-2 ring-orange-500" : ""
+        isSelected ? "ring-1 ring-orange-300" : ""
       }`}
       onClick={onSelect}
     >
-      <div className="flex p-3">
+      <div className="flex p-1">
         <img
           src={service.img}
           alt={service.title}
-          className="w-24 h-24 object-cover rounded-xl"
+          className="w-24 h-26 object-cover rounded-xl"
         />
 
-        <div className="ml-4 flex-1 flex flex-col justify-between">
+        <div className="ml-2 flex-1 flex flex-col justify-between p-1">
           <div>
             <div className="flex justify-between items-start">
-              <h3 className="font-bold text-lg text-gray-800">{service.title}</h3>
+              <h3 className="font-bold text-lg text-gray-800 line-clamp-1">
+                {service.title}
+              </h3>
               <span
-                className={`text-xs px-2 py-1 rounded-full ${statusColors[service.status]} font-medium`}
+                className={`text-xs px-2 py-1 rounded-full ${
+                  statusColors[service.status]
+                } font-medium`}
               >
                 {service.status === "active" && "Faol"}
                 {service.status === "busy" && "Band"}
@@ -145,20 +149,24 @@ const ServiceCard = ({ service, onSelect, isSelected }) => {
                     <FaStar
                       key={i}
                       size={14}
-                      className={i < service.rating ? "fill-current" : "text-gray-300"}
+                      className={
+                        i < service.rating ? "fill-current" : "text-gray-300"
+                      }
                     />
                   ))}
                 </div>
-                <span className="text-xs text-gray-500">{service.rating}.0</span>
+                <span className="text-xs text-gray-500">
+                  {service.rating}.0
+                </span>
               </div>
 
-              <div className="flex items-center text-gray-500 text-sm">
+              {/* <div className="flex items-center text-gray-500 text-sm">
                 <FiMapPin size={14} className="mr-1" />
                 <span>{service.distance}</span>
-              </div>
+              </div> */}
             </div>
 
-            <div className="flex items-center justify-between mt-2">
+            <div className="flex items-center justify-between mt-0">
               <span className="font-bold text-orange-500">{service.price}</span>
               <button className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded-lg text-sm font-medium transition-colors">
                 Buyurtma

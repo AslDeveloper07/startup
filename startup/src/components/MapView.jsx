@@ -116,7 +116,7 @@ const MapView = () => {
           <IoIosArrowBack className="mr-2" />
           Orqaga
         </Link>
-        <h2 className="text-xl font-semibold text-gray-800">Xarita</h2>
+        {/* <h2 className="text-xl font-semibold text-gray-800">Xarita</h2> */}
         <div className="w-6"></div>
       </header>
 
