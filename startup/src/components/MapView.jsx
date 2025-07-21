@@ -15,7 +15,7 @@ import "./../index.css";
 const centerMarkerUrl =
   "data:image/svg+xml;charset=UTF-8," +
   encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="#FF9800">
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="#FF6D00">
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5
       c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5
       2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
@@ -25,7 +25,7 @@ const centerMarkerUrl =
 const locationMarkerUrl =
   "data:image/svg+xml;charset=UTF-8," +
   encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="#FF9800">
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="#FF6D00">
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5
       c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5
       2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
@@ -88,20 +88,21 @@ const MapView = () => {
   const containerStyle = { width: "100%", height: "100%" };
 
   return (
-    <div className="map-view-app">
-      <header className="map-view-header">
+    <div className="map-view-app bg-gray-50">
+      <header className="map-view-header bg-white shadow-md py-4 px-6 flex items-center justify-between">
         <Link
           to={"/"}
           onClick={() => navigate(-1)}
-          className="map-view-back-button"
+          className="map-view-back-button flex items-center text-orange-600 hover:text-orange-800 transition-colors"
         >
-          <IoIosArrowBack className="back" /> Orqaga
+          <IoIosArrowBack className="back mr-2" /> Orqaga
         </Link>
-        <h2>Xarita</h2>
+        <h2 className="text-xl font-semibold text-gray-800">Xarita</h2>
+        <div className="w-6"></div> {/* For balance */}
       </header>
 
-      <main className="map-view-main-content">
-        <div className="map-view-container">
+      <main className="map-view-main-content relative">
+        <div className="map-view-container flex flex-col md:flex-row h-[calc(100vh-64px)]">
           <LoadScript
             googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
           >
@@ -115,6 +116,13 @@ const MapView = () => {
                 mapTypeControl: false,
                 fullscreenControl: false,
                 zoomControl: true,
+                styles: [
+                  {
+                    featureType: "poi",
+                    elementType: "labels",
+                    stylers: [{ visibility: "off" }],
+                  },
+                ],
               }}
             >
               <Marker
@@ -124,8 +132,8 @@ const MapView = () => {
               >
                 {activeInfoWindow === "center" && (
                   <InfoWindow onCloseClick={() => setActiveInfoWindow(null)}>
-                    <div>
-                      <strong>Usta Service</strong>
+                    <div className="p-2">
+                      <strong className="text-orange-600">Usta Service</strong>
                     </div>
                   </InfoWindow>
                 )}
@@ -140,9 +148,9 @@ const MapView = () => {
                 >
                   {activeInfoWindow === loc.id && (
                     <InfoWindow onCloseClick={() => setActiveInfoWindow(null)}>
-                      <div>
-                        <strong>{loc.name}</strong>
-                        <p>{loc.address}</p>
+                      <div className="p-2">
+                        <strong className="text-orange-600">{loc.name}</strong>
+                        <p className="text-gray-600 text-sm">{loc.address}</p>
                       </div>
                     </InfoWindow>
                   )}
@@ -151,55 +159,107 @@ const MapView = () => {
             </GoogleMap>
           </LoadScript>
 
-          {/* Details */}
+          {/* Action Button */}
+          <button
+            onClick={handleConfirm}
+            className="fixed bottom-6 right-6 md:right-auto md:left-1/2 md:transform md:-translate-x-1/2 bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-6 rounded-full shadow-lg hover:from-orange-600 hover:to-orange-700 transition-all flex items-center z-10"
+          >
+            <FiCheck className="mr-2" />
+            {/* <LuMapPin /> */}
+            Joyni tanlash
+          </button>
+
+          {/* Details Panel */}
           {isMobile ? (
             <div
-              className={`map-view-mobile-details ${
-                showDetails ? "visible" : ""
+              className={`map-view-mobile-details bg-white rounded-t-2xl shadow-lg transition-all duration-300 ${
+                showDetails ? "visible h-1/2" : "h-16"
               }`}
             >
               <div
-                className="map-view-drag-handle"
+                className="map-view-drag-handle flex justify-center items-center py-3 bg-orange-50 rounded-t-2xl cursor-pointer  "
                 onClick={() => setShowDetails(!showDetails)}
               >
-                {showDetails ? <FaChevronDown /> : <FaChevronUp />}
+                {showDetails ? (
+                  <FaChevronDown className="text-orange-600" />
+                ) : (
+                  <FaChevronUp className="text-orange-600" />
+                )}
               </div>
               {selectedLocation ? (
-                <div className="slideBar">
-                  <h3>{selectedLocation.name}</h3>
-                  <p>
-                    <FaMapMarkerAlt /> {selectedLocation.address}
+                <div className="slideBar p-4 overflow-y-auto h-[calc(100%-52px)]">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    {selectedLocation.name}
+                  </h3>
+                  <p className="text-gray-600 mb-3 flex items-center">
+                    <FaMapMarkerAlt className="text-orange-500 mr-2" />
+                    {selectedLocation.address}
                   </p>
-                  <p>{selectedLocation.description}</p>
-                  {selectedLocation.images.map((img, i) => (
-                    <img key={i} src={img} alt={selectedLocation.name} />
-                  ))}
-                  <ul>
+                  <p className="text-gray-700 mb-4">{selectedLocation.description}</p>
+                  <div className="flex space-x-2 mb-4 overflow-x-auto pb-2">
+                    {selectedLocation.images.map((img, i) => (
+                      <img
+                        key={i}
+                        src={img}
+                        alt={selectedLocation.name}
+                        className="w-32 h-24 object-cover rounded-lg"
+                      />
+                    ))}
+                  </div>
+                  <ul className="space-y-2">
                     {selectedLocation.details.map((d, i) => (
-                      <li key={i}>{d}</li>
+                      <li key={i} className="flex items-start">
+                        <span className="inline-block bg-orange-100 text-orange-600 rounded-full p-1 mr-2">
+                          <FiCheck size={12} />
+                        </span>
+                        <span className="text-gray-700">{d}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
               ) : (
-                <p className="cntr">Xaritadan joy tanlang</p>
+                <div className="flex justify-center items-center h-full">
+                  <p className="text-gray-500">Xaritadan joy tanlang</p>
+                </div>
               )}
             </div>
           ) : (
             selectedLocation && (
-              <div className="map-view-desktop-details">
-                <h3>{selectedLocation.name}</h3>
-                <p>
-                  <FaMapMarkerAlt /> {selectedLocation.address}
+              <div className="map-view-desktop-details w-full md:w-96 bg-white shadow-lg p-6 overflow-y-auto">
+                <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                  {selectedLocation.name}
+                </h3>
+                <p className="text-gray-600 mb-4 flex items-center">
+                  <FaMapMarkerAlt className="text-orange-500 mr-2" />
+                  {selectedLocation.address}
                 </p>
-                <p>{selectedLocation.description}</p>
-                {selectedLocation.images.map((img, i) => (
-                  <img key={i} src={img} alt={selectedLocation.name} />
-                ))}
-                <ul>
+                <p className="text-gray-700 mb-5">{selectedLocation.description}</p>
+                <div className="grid grid-cols-2 gap-2 mb-6">
+                  {selectedLocation.images.map((img, i) => (
+                    <img
+                      key={i}
+                      src={img}
+                      alt={selectedLocation.name}
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
+                  ))}
+                </div>
+                <ul className="space-y-3">
                   {selectedLocation.details.map((d, i) => (
-                    <li key={i}>{d}</li>
+                    <li key={i} className="flex items-start">
+                      <span className="inline-block bg-orange-100 text-orange-600 rounded-full p-1 mr-3 mt-1">
+                        <FiCheck size={12} />
+                      </span>
+                      <span className="text-gray-700">{d}</span>
+                    </li>
                   ))}
                 </ul>
+                <button
+                  onClick={handleConfirm}
+                  className="w-full mt-6 bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 px-6 rounded-lg shadow hover:from-orange-600 hover:to-orange-700 transition-all"
+                >
+                  Joyni tanlash
+                </button>
               </div>
             )
           )}
